@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es5",
+            "es6",
+            "dom",
+            "es2015.core",
+            "es2015.collection",
+            "es2015.generator",
+            "es2015.iterable",
+            "es2015.promise",
+            "es2015.proxy",
+            "es2015.reflect",
+            "es2015.symbol",
+            "es2015.symbol.wellknown",
+            "esnext.asynciterable"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "target": "ES6",
+        "strictNullChecks": true,
+        "rootDir": "src",
+        "outDir": "dist"
+    },
+    "exclude": ["./node_modules", "dist", "./**/node_modules"]
+}
