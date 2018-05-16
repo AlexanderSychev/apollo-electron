@@ -35,7 +35,7 @@ export class ElectronGraphqlClient {
     /** Common response event handler */
     @autobind
     protected onResponse(event: any, uuid: string, data: any): void {
-        if (this.responseHandlers[uuid]) {
+        if (Boolean(this.responseHandlers[uuid])) {
             this.responseHandlers[uuid](data);
             delete this.responseHandlers[uuid];
         }
