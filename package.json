@@ -30,7 +30,8 @@
   },
   "scripts": {
     "prepublish": "yarn clean && yarn compile",
-    "precommit": "yarn compile",
+    "precommit": "yarn comb && yarn compile",
+    "prepush": "yarn compile && yarn lint",
     "compile": "tsc",
     "clean": "del dist",
     "lint": "tslint ./src/**/*.ts -t stylish --project tsconfig.json",
