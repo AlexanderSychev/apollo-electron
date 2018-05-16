@@ -1,4 +1,5 @@
-!/dist/*
+!dist/
+src/
 .prettierignore
 .prettierrc.json
 tsconfig.json

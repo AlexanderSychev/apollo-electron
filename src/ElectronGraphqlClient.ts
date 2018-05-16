@@ -1,3 +1,4 @@
+import isNil from 'lodash.isnil';
 import autobind from 'autobind-decorator';
 import { ipcRenderer } from 'electron';
 import { v4 } from 'uuid';
@@ -29,14 +30,14 @@ export class ElectronGraphqlClient {
     public fetch(body: Partial<GraphQLRequest>): Promise<ExecutionResult> {
         const uuid: string = v4();
         return new Promise<any>(resolve => {
-            this.responseHandlers[uuid] = (response) => resolve(response);
+            this.responseHandlers[uuid] = response => resolve(response);
             ipcRenderer.send(this.options.requestEventType, uuid, body);
         });
     }
     /** Common response event handler */
     @autobind
     protected onResponse(event: any, uuid: string, data: ExecutionResult): void {
-        if (Boolean(this.responseHandlers[uuid])) {
+        if (!isNil(this.responseHandlers[uuid])) {
             this.responseHandlers[uuid](data);
             delete this.responseHandlers[uuid];
         }

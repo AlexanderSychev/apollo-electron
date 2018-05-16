@@ -15,7 +15,8 @@ export class ElectronIpcLink extends ApolloLink {
     public request(operation: Operation): Observable<FetchResult> {
         return new Observable(observer => {
             const { operationName, variables, query } = operation;
-            this.client.fetch({ operationName, variables, query })
+            this.client
+                .fetch({ operationName, variables, query })
                 .then(response => {
                     operation.setContext(response);
                     return response;

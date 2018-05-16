@@ -1,8 +1,10 @@
 import autobind from 'autobind-decorator';
+import isNil from 'lodash.isnil';
 import { ipcMain } from 'electron';
 import { readFileSync } from 'fs';
 import { GraphQLSchema } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
+import { GraphQLRequest } from 'apollo-link';
 import { APOLLO_RESPONSE_EVENT_TYPE, APOLLO_REQUEST_EVENT_TYPE } from './constants';
 import { ElectronIpcLinkOptions } from './ElectronIpcLinkOptions';
 import { ElectronApolloServerOptions } from './ElectronApolloServerOptions';
@@ -16,19 +18,22 @@ export class ElectronApolloServer {
     /** @constructor */
     constructor(serverOptions: ElectronApolloServerOptions, linkOptions: Partial<ElectronIpcLinkOptions> = {}) {
         let typeDefs: string | undefined = undefined;
-        if (serverOptions.typeDefsFilePath) {
+
+        if (!isNil(serverOptions.typeDefsFilePath)) {
             typeDefs = readFileSync(serverOptions.typeDefsFilePath, 'utf-8');
-        } else if (serverOptions.typeDefs) {
+        } else if (!isNil(serverOptions.typeDefs)) {
             typeDefs = serverOptions.typeDefs;
         } else {
             throw new Error(
                 'Type definitions must be defined in file ("typeDefsFilePath" field) or in string ("typeDefs")',
             );
         }
+
         this.schema = makeExecutableSchema({
             typeDefs,
             resolvers: serverOptions.resolvers,
         });
+
         this.linkOptions = {
             requestEventType: APOLLO_REQUEST_EVENT_TYPE,
             responseEventType: APOLLO_RESPONSE_EVENT_TYPE,
@@ -39,9 +44,13 @@ export class ElectronApolloServer {
     public start(): void {
         ipcMain.on(this.linkOptions.requestEventType, this.onRequest);
     }
-    /** */
+    /** Stop server */
+    public stop(): void {
+        ipcMain.removeListener(this.linkOptions.requestEventType, this.onRequest);
+    }
+    /** Request main handler */
     @autobind
-    protected onRequest(event: any, callbackId: string, data: any): void {
+    protected async onRequest(event: any, callbackId: string, data: Partial<GraphQLRequest>): Promise<void> {
         event.sender.send(this.linkOptions.responseEventType, callbackId, data);
     }
 }

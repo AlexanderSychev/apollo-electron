@@ -1,6 +1,6 @@
 {
   "name": "apollo-electron",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
@@ -8,6 +8,7 @@
     "@types/electron": "1.6.10",
     "@types/uuid": "3.4.3",
     "@types/node": "8.5.2",
+    "@types/lodash.isnil": "4.0.3",
     "husky": "0.14.3",
     "del-cli": "1.1.0",
     "prettier": "1.12.1",
@@ -19,14 +20,18 @@
   "dependencies": {
     "apollo-link": "1.2.2",
     "autobind-decorator": "2.1.0",
+    "cross-env": "5.1.3",
     "graphql": "0.13.2",
     "graphql-tag": "2.9.2",
     "graphql-tools": "2.18.0",
-    "uuid": "3.2.1"
+    "uuid": "3.2.1",
+    "lodash.isnil": "4.0.0",
+    "tslib": "1.9.1"
   },
   "scripts": {
+    "prepublish": "yarn clean && yarn compile",
     "compile": "tsc",
-    "clean": "del dist -f",
+    "clean": "del dist",
     "lint": "tslint ./src/**/*.ts -t stylish --project tsconfig.json",
     "comb": "prettier --write \"**/*.{ts,tsx}\""
   }
