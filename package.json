@@ -33,12 +33,8 @@
     "compile": "tsc",
     "clean": "del dist",
     "lint": "tslint ./src/**/*.ts -t stylish --project tsconfig.json",
-    "comb": "prettier --write \"**/*.{ts,tsx}\""
-  },
-  "husky": {
-    "hooks": {
-      "precommit": "yarn comb && yarn clean && yarn compile",
-      "prepush": "yarn compile && yarn lint"
-    }
+    "comb": "prettier --write \"**/*.{ts,tsx}\"",
+    "precommit": "yarn comb && yarn clean && yarn compile",
+    "prepush": "yarn compile && yarn lint"
   }
 }
