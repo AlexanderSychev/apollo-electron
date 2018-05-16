@@ -10,7 +10,7 @@
     "@types/node": "8.5.2",
     "@types/lodash.isnil": "4.0.3",
     "husky": "0.14.3",
-    "del-cli": "1.1.0",
+    "del": "3.0.0",
     "prettier": "1.12.1",
     "tslint": "5.9.1",
     "tslint-config-airbnb": "5.5.0",
@@ -29,12 +29,12 @@
     "tslib": "1.9.1"
   },
   "scripts": {
-    "prepublish": "yarn clean && yarn compile",
     "compile": "tsc",
-    "clean": "del dist",
+    "clean": "node build/clean.js",
     "lint": "tslint ./src/**/*.ts -t stylish --project tsconfig.json",
     "comb": "prettier --write \"**/*.{ts,tsx}\"",
-    "precommit": "prettier --write \"**/*.{ts,tsx}\" && del dist && tsc",
-    "prepush": "tsc && tslint ./src/**/*.ts -t stylish --project tsconfig.json"
+    "prepublish": "yarn clean && yarn compile",
+    "precommit": "yarn comb && yarn clean && yarn compile && yarn lint",
+    "prepush": "yarn clean && yarn compile && yarn lint"
   }
 }

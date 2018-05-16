@@ -34,8 +34,6 @@ export class ElectronApolloServer {
             resolvers: serverOptions.resolvers,
         });
 
-        this.schema.foo = 'null';
-
         this.linkOptions = {
             requestEventType: APOLLO_REQUEST_EVENT_TYPE,
             responseEventType: APOLLO_RESPONSE_EVENT_TYPE,
