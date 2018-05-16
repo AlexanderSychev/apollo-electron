@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
@@ -29,7 +28,8 @@
         "target": "ES6",
         "strictNullChecks": true,
         "rootDir": "src",
-        "outDir": "dist"
+        "outDir": "dist",
+        "declaration": true
     },
     "exclude": ["./node_modules", "dist", "./**/node_modules"]
 }
