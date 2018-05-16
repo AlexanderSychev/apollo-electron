@@ -2,7 +2,7 @@ import autobind from 'autobind-decorator';
 import isNil from 'lodash.isnil';
 import { ipcMain } from 'electron';
 import { readFileSync } from 'fs';
-import { GraphQLSchema } from 'graphql';
+import { GraphQLSchema, execute, ExecutionResult, DocumentNode } from 'graphql';
 import { makeExecutableSchema } from 'graphql-tools';
 import { GraphQLRequest } from 'apollo-link';
 import { APOLLO_RESPONSE_EVENT_TYPE, APOLLO_REQUEST_EVENT_TYPE } from './constants';
@@ -51,6 +51,12 @@ export class ElectronApolloServer {
     /** Request main handler */
     @autobind
     protected async onRequest(event: any, callbackId: string, data: Partial<GraphQLRequest>): Promise<void> {
-        event.sender.send(this.linkOptions.responseEventType, callbackId, data);
+        const result: ExecutionResult = await execute({
+            operationName: data.operationName!,
+            schema: this.schema,
+            document: data.query! as DocumentNode,
+            variableValues: data.variables,
+        });
+        event.sender.send(this.linkOptions.responseEventType, callbackId, result);
     }
 }

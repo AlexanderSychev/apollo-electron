@@ -28,7 +28,6 @@ export class ElectronIpcLink extends ApolloLink {
                 .catch(err => {
                     observer.error(err);
                 });
-            observer.complete();
         });
     }
 }
