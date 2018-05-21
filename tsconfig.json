@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "noImplicitUseStrict": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
@@ -32,5 +33,5 @@
         "declaration": true,
         "importHelpers": true
     },
-    "exclude": ["./node_modules", "dist", "./**/node_modules", "./server.d.ts", "./client.d.ts"]
+    "exclude": ["./node_modules", "dist", "./**/node_modules", "./server.d.ts", "./client.d.ts", "./constants.d.ts"]
 }
