@@ -13,6 +13,9 @@ export class ElectronIpcLink extends ApolloLink {
     }
     /** @override */
     public request(operation: Operation): Observable<FetchResult> {
+        if (!this.client.isStarted) {
+            this.client.start();
+        }
         return new Observable(observer => {
             const { operationName, variables, query } = operation;
             this.client

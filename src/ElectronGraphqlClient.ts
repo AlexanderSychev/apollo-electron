@@ -10,9 +10,11 @@ import { ElectronIpcLinkOptions } from './ElectronIpcLinkOptions';
 export class ElectronGraphqlClient {
     /** Electron GraphQL Link options */
     protected options: ElectronIpcLinkOptions;
+    /** Response event handlers dictionary */
     protected responseHandlers: {
         [uuid: string]: (data: ExecutionResult) => void;
     };
+    protected isStartedInternal: boolean;
     /** @constructor */
     public constructor(options: Partial<ElectronIpcLinkOptions> = {}) {
         this.options = {
@@ -21,10 +23,21 @@ export class ElectronGraphqlClient {
             ...options,
         };
         this.responseHandlers = {};
+        this.isStartedInternal = false;
     }
-    /** Initialize */
-    public init(): void {
+    /** Start listening */
+    public start(): void {
         ipcRenderer.on(this.options.responseEventType, this.onResponse);
+        this.isStartedInternal = true;
+    }
+    /** Stop listening */
+    public stop(): void {
+        ipcRenderer.removeListener(this.options.responseEventType, this.onResponse);
+        this.isStartedInternal = false;
+    }
+    /** Read-only flag which marks that Electron GraphQL client was started */
+    public get isStarted(): boolean {
+        return this.isStartedInternal;
     }
     /** Fetch data */
     public fetch(body: Partial<GraphQLRequest>): Promise<ExecutionResult> {
