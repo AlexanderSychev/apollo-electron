@@ -1,7 +1,6 @@
 {
   "name": "apollo-electron",
   "version": "0.0.1",
-  "main": "dist/index.js",
   "license": "MIT",
   "devDependencies": {
     "@types/graphql": "0.13.0",

@@ -25,12 +25,12 @@
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "suppressImplicitAnyIndexErrors": true,
-        "target": "ES6",
+        "target": "ES5",
         "strictNullChecks": true,
         "rootDir": "src",
         "outDir": "dist",
         "declaration": true,
         "importHelpers": true
     },
-    "exclude": ["./node_modules", "dist", "./**/node_modules"]
+    "exclude": ["./node_modules", "dist", "./**/node_modules", "./server.d.ts", "./client.d.ts"]
 }

@@ -1,4 +1,4 @@
-import isNil from 'lodash.isnil';
+import isNil = require('lodash.isnil');
 import autobind from 'autobind-decorator';
 import { ipcRenderer } from 'electron';
 import { v4 } from 'uuid';

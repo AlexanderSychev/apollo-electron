@@ -1,5 +1,5 @@
 import autobind from 'autobind-decorator';
-import isNil from 'lodash.isnil';
+import isNil = require('lodash.isnil');
 import { ipcMain } from 'electron';
 import { readFileSync } from 'fs';
 import { GraphQLSchema, execute, ExecutionResult, DocumentNode } from 'graphql';
